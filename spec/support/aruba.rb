@@ -8,17 +8,26 @@ end
 
 module CleanEnv
   def run(*args)
-    clean_env = Bundler.clean_env
-    (ENV.keys - clean_env.keys).each {|k| delete_environment_variable k }
-    # Also delete any RVM crud
+    (ENV.keys - Bundler.clean_env.keys).each {|k| delete_environment_variable k }
+
+    scrub_rvm_vars
+    scrub_path
+
+    super
+  end
+
+  private
+
+  def scrub_rvm_vars
     delete_environment_variable "RUBYOPT"
     delete_environment_variable "RUBYLIB"
     delete_environment_variable "GEM_PATH"
     delete_environment_variable "GEM_HOME"
+  end
+
+  def scrub_path
     path = ENV['PATH'].split(/:/)
-    # Remove .rvm/.rbenv stuff from PATH
     set_environment_variable "PATH", path.reject {|x| x =~ %r{/.(rvm|rbenv)/} }.join(":")
-    super
   end
 end
 
