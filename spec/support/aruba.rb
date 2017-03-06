@@ -2,7 +2,7 @@ require 'aruba/rspec'
 
 module BrewGemBin
   def brew_gem_exe
-    File.expand_path('../../../bin/brew-gem', __FILE__)
+    File.expand_path('../../../exe/brew-gem', __FILE__)
   end
 end
 
