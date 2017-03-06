@@ -2,49 +2,46 @@ require 'erb'
 require 'tempfile'
 
 require 'brew/npm'
+require 'brew/npm/commands'
 
 module Brew
   module Npm
     class CLI
-      COMMANDS = {
-        install: <<-MSG,
-Install a brew gem, accepts an optional version argument
-            (e.g. brew gem install <name> [version])
-        MSG
-        upgrade: "Upgrade to the latest version of a brew gem",
-        uninstall: "Uninstall a brew gem",
-        info: "Show information for an installed gem",
-        help: "This message"
-      }
-
       def initialize(args = ARGV)
-        abort help_msg unless args[0]
-        abort "unknown command: #{args[0]}\n#{help_msg}" unless COMMANDS.keys.include?(args[0].to_sym)
+        @command_name, *@args = args
 
-        @command = args[0]
-        @gem_name = args[1]
-        @gem_version = args[2]
+        abort command_required unless @command_name
       end
 
       def run
-        if @command == 'help'
-          puts help_msg
-          exit
-        end
-
-        version = ::Brew::Npm::fetch_version(@gem_name, @gem_version)
-
-        ::Brew::Npm::with_temp_formula(@gem_name, version) do |filename|
-          system "brew #@command #{filename}"
-        end
+        command.call
       end
 
       private
 
-      def help_msg
-        (["Please specify a gem name (e.g. brew gem command <name>)"] +
-         COMMANDS.map {|name, desc| "  #{name} - #{desc}"}).join("\n")
+      def command
+        @command ||= command_class.new @args
       end
+
+      def command_class
+        classname = @command_name.to_s.capitalize
+        abort unknown_command(@command_name) unless Commands.const_defined? classname
+
+        Commands.const_get(classname, false)
+      end
+
+      def command_required
+        "Please specify a command"
+      end
+
+      def unknown_command(command)
+        "Unknown command: #{command}"
+      end
+
+      # def help_msg
+      #   (["Please specify a gem name (e.g. brew gem command <name>)"] +
+      #    COMMANDS.map {|name, desc| "  #{name} - #{desc}"}).join("\n")
+      # end
 
     end
   end
