@@ -6,7 +6,7 @@ RSpec.describe Brew::Npm, type: :aruba  do
 
   subject(:aruba_cmd) { brew_npm command }
 
-  let(:help_message) { Regexp.new Regexp.quote(Brew::Npm::CLI.help_msg.lines.first) }
+  let(:help_message) { Regexp.new Regexp.quote "Please specify a gem name (e.g. brew gem command <name>)" }
 
   context "aruba environment" do
     it "doesn't contain any Bundler or RVM stuff" do
