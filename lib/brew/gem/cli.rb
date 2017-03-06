@@ -5,12 +5,14 @@ module Brew::Gem::CLI
   module_function
 
   COMMANDS = {
-    "install"   => ("Install a brew gem, accepts an optional version argument\n" +
-                    "            (e.g. brew gem install <name> [version])"),
-    "upgrade"   => "Upgrade to the latest version of a brew gem",
-    "uninstall" => "Uninstall a brew gem",
-    "info"      => "Show information for an installed gem",
-    "help"      => "This message"
+    install: <<-MSG,
+Install a brew gem, accepts an optional version argument
+            (e.g. brew gem install <name> [version])
+    MSG
+    upgrade: "Upgrade to the latest version of a brew gem",
+    uninstall: "Uninstall a brew gem",
+    info: "Show information for an installed gem",
+    help: "This message"
   }
 
   def help_msg
@@ -31,7 +33,7 @@ module Brew::Gem::CLI
 
   def process_args(args)
     abort help_msg unless args[0]
-    abort "unknown command: #{args[0]}\n#{help_msg}" unless COMMANDS.keys.include?(args[0])
+    abort "unknown command: #{args[0]}\n#{help_msg}" unless COMMANDS.keys.include?(args[0].to_sym)
 
     if args[0] == 'help'
       STDERR.puts help_msg
