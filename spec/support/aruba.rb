@@ -1,8 +1,8 @@
 require 'aruba/rspec'
 
-module BrewGemBin
-  def brew_gem_exe
-    File.expand_path('../../../exe/brew-gem', __FILE__)
+module BrewNpmBin
+  def brew_npm_exe
+    File.expand_path('../../../exe/brew-npm', __FILE__)
   end
 end
 
@@ -39,6 +39,6 @@ end
 
 RSpec.configure do |config|
   config.include CleanEnv
-  config.include BrewGemBin
+  config.include BrewNpmBin
   config.include ArubaHelpers
 end

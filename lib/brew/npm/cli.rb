@@ -1,7 +1,7 @@
 require 'erb'
 require 'tempfile'
 
-module Brew::Gem::CLI
+module Brew::Npm::CLI
   module_function
 
   COMMANDS = {
