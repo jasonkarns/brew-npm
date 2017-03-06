@@ -1,6 +1,6 @@
 module Brew
-  module Gem
+  module Npm
   end
 end
 
-require "brew/gem/cli"
+require "brew/npm/cli"

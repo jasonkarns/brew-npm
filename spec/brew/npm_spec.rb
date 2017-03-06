@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-RSpec.describe Brew::Gem, type: :aruba  do
-  def brew_gem(command); run_complete "#{brew_gem_exe} #{command}"; end
+RSpec.describe Brew::Npm, type: :aruba  do
+  def brew_npm(command); run_complete "#{brew_npm_exe} #{command}"; end
   def brew(command); run_complete "brew #{command}"; end
 
-  subject(:aruba_cmd) { brew_gem command }
+  subject(:aruba_cmd) { brew_npm command }
 
-  let(:help_message) { Regexp.new Regexp.quote(Brew::Gem::CLI.help_msg.lines.first) }
+  let(:help_message) { Regexp.new Regexp.quote(Brew::Npm::CLI.help_msg.lines.first) }
 
   context "aruba environment" do
     it "doesn't contain any Bundler or RVM stuff" do
@@ -55,12 +55,12 @@ RSpec.describe Brew::Gem, type: :aruba  do
         @bundler_pre_linked = true
         raise "bundler already linked in homebrew; either unlink or re-run rspec with '--tag ~integration'"
       end
-      expect(brew_gem("install bundler")).to be_successfully_executed
+      expect(brew_npm("install bundler")).to be_successfully_executed
     end
 
     after :all do |example|
       unless @bundler_pre_linked
-        expect(brew_gem("uninstall bundler")).to be_successfully_executed
+        expect(brew_npm("uninstall bundler")).to be_successfully_executed
         expect(brew("list gem-bundler")).to_not  be_successfully_executed
       end
     end

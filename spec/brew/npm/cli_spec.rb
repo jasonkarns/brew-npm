@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Brew::Gem::CLI do
+RSpec.describe Brew::Npm::CLI do
   context "#expand_formula" do
     subject(:formula) { described_class.expand_formula("foo-bar", "1.2.3") }
 
