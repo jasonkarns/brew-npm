@@ -4,4 +4,3 @@ module Brew
 end
 
 require "brew/gem/cli"
-require "brew/gem/version"

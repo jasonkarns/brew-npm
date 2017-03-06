@@ -1,4 +1,3 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'brew/gem'
 
 if RUBY_VERSION < '1.9.3'
