@@ -19,10 +19,7 @@ module CleanEnv
   private
 
   def scrub_rvm_vars
-    delete_environment_variable "RUBYOPT"
-    delete_environment_variable "RUBYLIB"
-    delete_environment_variable "GEM_PATH"
-    delete_environment_variable "GEM_HOME"
+    %w{RUBYOPT RUBYLIB GEM_PATH GEM_HOME}.each(&method(:delete_environment_variable))
   end
 
   def scrub_path
