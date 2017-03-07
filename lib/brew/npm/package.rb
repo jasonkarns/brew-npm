@@ -41,7 +41,7 @@ module Brew
       private
 
       def fetch_package_json
-        `npm view --json "#{@name}@#{@version}"`.tap do |json|
+        `npm view --json "#{@name}@#{@version}" 2>/dev/null`.tap do |json|
           raise "Unknown package: #{@name}" unless $? == 0
 
           raise "Nonexistant version: #@version" if json.empty? && version_specified?
