@@ -22,6 +22,8 @@ RSpec.describe BrewNpm::CLI do
   end
 end
 
+=begin
+
 RSpec.describe BrewNpm, type: :aruba  do
   def brew_npm(command); run_complete "#{brew_npm_exe} #{command}"; end
   def brew(command); run_complete "brew #{command}"; end
@@ -102,3 +104,5 @@ RSpec.describe BrewNpm, type: :aruba  do
     end
   end
 end
+
+=end
