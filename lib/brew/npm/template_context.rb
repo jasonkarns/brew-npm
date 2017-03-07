@@ -1,6 +1,14 @@
+require 'forwardable'
+
 module Brew
   module Npm
     class TemplateContext
+      extend Forwardable
+
+      def_delegators :@package,
+        :formula_name, :description,
+        :homepage, :repository,
+        :sha1, :url
 
       def initialize(package)
         @package = package
@@ -8,18 +16,6 @@ module Brew
 
       def binding
         Kernel.binding
-      end
-
-      def package_name
-        @package.name
-      end
-
-      def package_version
-        @package.version
-      end
-
-      def formula_name
-        @package.formula_name
       end
     end
   end

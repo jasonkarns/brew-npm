@@ -49,6 +49,9 @@ Install a brew gem, accepts an optional version argument
         class Info < BrewCommand
           @@help = "Show information for an installed gem"
         end
+
+        #TODO: Home command
+        #TODO: Options command
       end
     end
   end
