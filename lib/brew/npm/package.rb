@@ -3,9 +3,6 @@ require 'json'
 module Brew
   module Npm
     class Package
-      #TODO: verify package exists on npm
-      #TODO: get version if not provided
-
       attr_accessor :name, :version
 
       def initialize(name_spec)
@@ -13,8 +10,10 @@ module Brew
 
         json = `npm view --json "#{name}@#{version}"`
 
+        #TODO fix this error handling
         raise "Nonexistant Package" unless $? == 0
 
+        #TODO fix this error handling
         raise "Nonexistant Version" if !version.empty? && json.empty?
 
         @spec = JSON.parse json
