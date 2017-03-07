@@ -16,13 +16,20 @@ module Brew
       #TODO completions?
       class BrewCommand < Command
         def initialize(args=[])
-          @formula = Formula.new Package.new(args.pop)
+          name, @options = process_args(args)
+          @formula = Formula.new Package.new(name.pop)
         end
 
         def call
           @formula.write_temporarily do |filename|
             system "brew #{name} #{filename}"
           end
+        end
+
+        private
+
+        def process_args(args)
+          args.partition { |arg| !arg.start_with? '--' }
         end
       end
 
