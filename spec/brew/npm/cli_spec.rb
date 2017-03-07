@@ -2,24 +2,24 @@ require 'spec_helper'
 require 'brew_npm/cli'
 
 RSpec.describe BrewNpm::CLI do
-  subject { described_class.new(command) }
+  subject { described_class }
 
-  context "without args" do
-    let(:command) {}
+  describe "::run" do
+    context "without args" do
+      it "should raise CommandRequired" do
+        expect { subject.run }.to output(/Please specify a command/).to_stderr
+          .and raise_error SystemExit
+      end
+    end
 
-    it "should raise CommandRequired" do
-      expect { subject }.to raise_error(/Please specify a command/)
+    context "with args" do
+      it "should create and call the command" do
+        expect(BrewNpm::Commands).to receive(:call).with('foo', [:arg1, :arg2])
+
+        subject.run ['foo', :arg1, :arg2]
+      end
     end
   end
-
-  context "with unknown command" do
-    let(:command) { 'foo' }
-
-    it "should raise CommandRequired" do
-      expect { subject.run }.to raise_error(/Unknown command: foo/)
-    end
-  end
-
 end
 
 RSpec.describe BrewNpm, type: :aruba  do

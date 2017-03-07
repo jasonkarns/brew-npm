@@ -33,12 +33,14 @@ module BrewNpm
   end
 
   module Commands
-    def self.get(name)
+    module_function
+
+    def call(name, args)
       classname = name.to_s.capitalize
 
       raise UnknownCommand, name unless const_defined? classname
 
-      const_get(classname, false)
+      const_get(classname, false).new(args).call
     end
 
     class Help < Command
