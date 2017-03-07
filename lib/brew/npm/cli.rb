@@ -1,15 +1,5 @@
 require 'brew/npm/commands'
-
-module Brew
-  module Npm
-    class CommandRequired < StandardError
-      def initialize(msg="Please specify a command")
-        super
-      end
-    end
-
-  end
-end
+require 'brew/npm/errors'
 
 module Brew
   module Npm

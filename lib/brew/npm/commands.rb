@@ -1,14 +1,9 @@
-require 'brew/npm/package'
+require 'brew/npm/errors'
 require 'brew/npm/formula'
+require 'brew/npm/package'
 
 module Brew
   module Npm
-    class UnknownCommand < StandardError
-      def initialize(msg="Unknown command", cmd)
-        super("#{msg}: #{cmd}")
-      end
-    end
-
     class Command
       def name
         self.class.name.split('::').last.downcase
