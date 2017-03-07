@@ -1,7 +1,3 @@
-require 'erb'
-require 'tempfile'
-
-require 'brew/npm'
 require 'brew/npm/commands'
 
 module Brew

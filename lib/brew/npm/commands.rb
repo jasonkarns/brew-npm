@@ -5,7 +5,7 @@ module Brew
     class CLI
       class Command; end
 
-      class NpmCommand < Command
+      class BrewCommand < Command
         def initialize(args=[])
           @package = Package.new(*args)
         end
@@ -13,7 +13,6 @@ module Brew
         def call
           # version = ::Brew::Npm::fetch_version(@gem_name, @gem_version)
 
-          # ::Brew::Npm::with_temp_formula(@gem_name, version) do |filename|
           #   system "brew #@command #{filename}"
           # end
         end
@@ -28,22 +27,22 @@ module Brew
           end
         end
 
-        class Install < NpmCommand
+        class Install < BrewCommand
           @@help = <<-MSG
 Install a brew gem, accepts an optional version argument
             (e.g. brew gem install <name> [version])
           MSG
         end
 
-        class Upgrade < NpmCommand
+        class Upgrade < BrewCommand
           @@help = "Upgrade to the latest version of a brew gem"
         end
 
-        class Uninstall < NpmCommand
+        class Uninstall < BrewCommand
           @@help = "Uninstall a brew gem"
         end
 
-        class Info < NpmCommand
+        class Info < BrewCommand
           @@help = "Show information for an installed gem"
         end
       end
