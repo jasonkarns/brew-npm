@@ -13,14 +13,15 @@ module Brew
 
         def call
           with_temp_formula do |filename|
-            puts filename
-            puts File.read filename
-
-          #   system "brew #@command #{filename}"
+            system "brew #{name} #{filename}"
           end
         end
 
         private
+
+        def name
+          self.class.name.split('::').last.downcase
+        end
 
         def with_temp_formula(&block)
           Formula.new(@package).write_temporarily(&block)
