@@ -4,6 +4,8 @@ require 'brew_npm/package'
 
 module BrewNpm
   class Command
+    def call; end
+
     def name
       self.class.name.split('::').last.downcase
     end
@@ -35,7 +37,7 @@ module BrewNpm
   module Commands
     module_function
 
-    def call(name, args)
+    def call(name, args=[])
       classname = name.to_s.capitalize
 
       raise UnknownCommand, name unless const_defined? classname
