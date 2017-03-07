@@ -1,4 +1,5 @@
 require 'brew/npm/package'
+require 'brew/npm/formula'
 
 module Brew
   module Npm
@@ -11,10 +12,18 @@ module Brew
         end
 
         def call
-          # version = ::Brew::Npm::fetch_version(@gem_name, @gem_version)
+          with_temp_formula do |filename|
+            puts filename
+            puts File.read filename
 
           #   system "brew #@command #{filename}"
-          # end
+          end
+        end
+
+        private
+
+        def with_temp_formula(&block)
+          Formula.new(@package).write_temporarily(&block)
         end
       end
 
