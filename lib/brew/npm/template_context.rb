@@ -21,10 +21,6 @@ module Brew
       def formula_name
         @package.formula_name
       end
-
-      def user_gemrc
-        "#{ENV['HOME']}/.gemrc"
-      end
     end
   end
 end
