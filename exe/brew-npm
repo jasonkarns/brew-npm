@@ -2,5 +2,5 @@
 
 $LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
 
-require 'brew/npm'
-Brew::Npm::CLI.run(ARGV)
+require 'brew_npm/cli'
+BrewNpm::CLI.run(ARGV)
