@@ -2,7 +2,7 @@ require 'json'
 
 module BrewNpm
   class Package
-    attr_accessor :name, :version
+    attr_accessor :name
 
     def initialize(name_spec)
       @name, @version = name_spec.split('@')
