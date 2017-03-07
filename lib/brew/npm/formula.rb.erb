@@ -6,8 +6,11 @@ class <%= formula_name %> < Formula
   desc "<%= description %>"
   homepage "<%= homepage %>"
   url "<%= url %>"
-  sha1 "<%= sha1 %>"
   head "<%= repository %>"
+  # cannot provide shasum because npm only knows sha1
+  # https://github.com/npm/npm/issues/4938
+  # sha1 is deprecated by homebrew and throws errors
+  # sha1 "<%= sha1 %>"
 
   depends_on 'node'
   # TODO: decide if this is necessary
