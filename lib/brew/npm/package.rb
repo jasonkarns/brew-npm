@@ -2,16 +2,23 @@ require 'json'
 
 module Brew
   module Npm
-    class Package < Struct.new(:name, :version)
+    class Package
       #TODO: verify package exists on npm
       #TODO: get version if not provided
 
-      def initialize(*args)
-        super
-        @spec = JSON.parse `npm info "#{name}@#{version}"`
-        # success with no output means no matching version
-        # failure means no matching package
-        # success with output is matching package + version
+      attr_accessor :name, :version
+
+      def initialize(name, version='')
+        @name = name
+        @version = version
+
+        json = `npm view --json "#{name}@#{version}"`
+
+        raise "Nonexistant Package" unless $? == 0
+
+        raise "Nonexistant Version" if !version.empty? && json.empty?
+
+        @spec = JSON.parse json
       end
 
       def description
