@@ -19,7 +19,7 @@ module Brew
       end
 
       def formula_name
-        'Gem' + package_name.capitalize.gsub(/[-_.\s]([a-zA-Z0-9])/) { $1.upcase }.gsub('+', 'x')
+        @package.formula_name
       end
 
       def user_gemrc

@@ -8,7 +8,7 @@ module Brew
     class Formula
 
       def initialize(package)
-        @filename = File.join Dir.tmpdir, "gem-#{package.name}.rb"
+        @filename = File.join Dir.tmpdir, "npm-#{package.name}.rb"
         @context = TemplateContext.new package
       end
 

@@ -3,6 +3,10 @@ module Brew
     class Package < Struct.new(:name, :version)
       #TODO: verify package exists on npm
       #TODO: get version if not provided
+
+      def formula_name
+        'Npm' + name.capitalize.gsub(/[-_.\s]([a-zA-Z0-9])/) { $1.upcase }.gsub('+', 'x')
+      end
     end
   end
 end
