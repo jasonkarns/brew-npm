@@ -11,10 +11,6 @@ module BrewNpm
     end
   end
 
-  #TODO accept homebre aliases (like remove for uninstall)
-  #TODO accept addition homebrew options
-  #TODO only Install/Upgrade needs the version arg
-  #TODO completions?
   class BrewCommand < Command
     def initialize(args=[])
       name, @options = process_args(args)

@@ -19,5 +19,25 @@ RSpec.describe BrewNpm::Commands do
 
       subject.call 'install', args
     end
+
+    pending "handle standard homebrew aliases"
+      # uninstall, rm, remove
+      # list, ls
+    pending "provides command completions"
+
+    pending "prints usage/help"
+  end
+end
+
+RSpec.describe BrewNpm::BrewCommand do
+  describe "#call" do
+    pending "writes formula temporarily"
+
+    pending "invokes brew command with the formula"
+
+    context "with homebrew --option flags" do
+      pending "passes to brew"
+      pending "accepts them in any order"
+    end
   end
 end
