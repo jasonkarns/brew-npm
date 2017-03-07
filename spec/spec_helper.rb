@@ -1,16 +1,30 @@
-#TODO I think this can be deleted
-if RUBY_VERSION < '1.9.3'
-  ::Dir.glob(::File.expand_path('../support/*.rb', __FILE__)).each { |f| require File.join(File.dirname(f), File.basename(f, '.rb')) }
-  ::Dir.glob(::File.expand_path('../support/**/*.rb', __FILE__)).each { |f| require File.join(File.dirname(f), File.basename(f, '.rb')) }
-else
-  ::Dir.glob(::File.expand_path('../support/*.rb', __FILE__)).each { |f| require_relative f }
-  ::Dir.glob(::File.expand_path('../support/**/*.rb', __FILE__)).each { |f| require_relative f }
-end
-
-RSpec.configure do |c|
-  c.filter_run focus: true
-  c.run_all_when_everything_filtered = true
-  unless system('which brew > /dev/null')
-    c.filter_run_excluding integration: true
+# See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
+
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.filter_run_when_matching :focus
+
+  # only run integration tests when brew is available
+  config.filter_run_excluding integration: true unless system('which brew > /dev/null')
+
+  config.example_status_persistence_file_path = "spec/examples.txt"
+
+  config.disable_monkey_patching!
+
+  config.warnings = true
+
+  config.default_formatter = 'doc' if config.files_to_run.one?
+
+  config.profile_examples = 3
+
+  config.order = :random
+  Kernel.srand config.seed
 end
