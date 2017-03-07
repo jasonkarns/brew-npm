@@ -3,8 +3,8 @@ require 'brew_npm/errors'
 
 module BrewNpm
   module CLI
-    def self.run(*args)
-      command_name = args.pop
+    def self.run(args)
+      command_name = args.shift
 
       raise CommandRequired unless command_name
 
