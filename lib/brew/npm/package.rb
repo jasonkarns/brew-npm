@@ -7,16 +7,7 @@ module Brew
 
       def initialize(name_spec)
         @name, @version = name_spec.split('@')
-
-        json = `npm view --json "#{name}@#{version}"`
-
-        #TODO fix this error handling
-        raise "Nonexistant Package" unless $? == 0
-
-        #TODO fix this error handling
-        raise "Nonexistant Version" if !version.empty? && json.empty?
-
-        @spec = JSON.parse json
+        @spec = JSON.parse fetch_package_json
       end
 
       def description
@@ -45,6 +36,20 @@ module Brew
 
       def version
         @version ||= @spec['version']
+      end
+
+      private
+
+      def fetch_package_json
+        `npm view --json "#{@name}@#{@version}"`.tap do |json|
+          raise "Unknown package: #{@name}" unless $? == 0
+
+          raise "Nonexistant version: #@version" if json.empty? && version_specified?
+        end
+      end
+
+      def version_specified?
+        !@version.empty? && !@version.nil?
       end
     end
   end
