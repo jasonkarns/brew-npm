@@ -49,11 +49,13 @@ Install a brew gem, accepts an optional version argument
           @@help = "Uninstall <npm package>."
         end
 
+        class Home < BrewCommand
+          @@help = "Open <npm package>'s homepage in a browser."
+        end
+
         class Info < BrewCommand
           @@help = "Display information about <npm package>."
         end
-
-        #TODO: Home command
         #TODO: Options command
       end
     end
