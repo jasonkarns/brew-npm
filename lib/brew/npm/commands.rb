@@ -4,27 +4,21 @@ require 'brew/npm/formula'
 module Brew
   module Npm
     class CLI
-      class Command; end
-
-      class BrewCommand < Command
-        def initialize(args=[])
-          @package = Package.new(*args)
-        end
-
-        def call
-          with_temp_formula do |filename|
-            system "brew #{name} #{filename}"
-          end
-        end
-
-        private
-
+      class Command
         def name
           self.class.name.split('::').last.downcase
         end
+      end
 
-        def with_temp_formula(&block)
-          Formula.new(@package).write_temporarily(&block)
+      class BrewCommand < Command
+        def initialize(args=[])
+          @formula = Formula.new Package.new(*args)
+        end
+
+        def call
+          @formula.write_temporarily do |filename|
+            system "brew #{name} #{filename}"
+          end
         end
       end
 
