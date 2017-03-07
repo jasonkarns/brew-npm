@@ -13,6 +13,7 @@ module Brew
       #TODO accept homebre aliases (like remove for uninstall)
       #TODO accept addition homebrew options
       #TODO only Install/Upgrade needs the version arg
+      #TODO completions?
       class BrewCommand < Command
         def initialize(args=[])
           @formula = Formula.new Package.new(args.pop)
@@ -42,7 +43,7 @@ Install a brew gem, accepts an optional version argument
         end
 
         class Upgrade < BrewCommand
-          @@help = "Upgrade outdated, unpinned <npm package>s."
+          @@help = "Upgrade outdated <npm package>s."
         end
 
         class Uninstall < BrewCommand
@@ -56,8 +57,14 @@ Install a brew gem, accepts an optional version argument
         class Info < BrewCommand
           @@help = "Display information about <npm package>."
         end
-        #TODO: Options command
-        #TODO: List command
+
+        class Options < BrewCommand
+          @@help = "Display install options specific to <npm package>."
+        end
+
+        class List < BrewCommand
+          @@help = "List the installed files for <npm package>."
+        end
       end
     end
   end
