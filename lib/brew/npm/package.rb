@@ -23,7 +23,7 @@ module Brew
       end
 
       def repository
-        @spec['repository']['url']
+        @spec['repository']['url'].sub(/^git\+/, '')
       end
 
       def sha1

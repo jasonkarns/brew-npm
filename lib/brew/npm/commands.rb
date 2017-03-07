@@ -22,7 +22,7 @@ module Brew
 
         def call
           @formula.write_temporarily do |filename|
-            system "brew #{name} #{filename}"
+            system "brew", name, filename, *@options
           end
         end
 
