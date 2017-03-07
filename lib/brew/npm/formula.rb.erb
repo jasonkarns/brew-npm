@@ -3,11 +3,11 @@
 require 'language/node'
 
 class <%= formula_name %> < Formula
-  desc <%= description %>
-  homepage <%= homepage %>
-  url <%= url %>
-  sha1 <%= sha256 %>
-  head <%= repository %>
+  desc "<%= description %>"
+  homepage "<%= homepage %>"
+  url "<%= url %>"
+  sha1 "<%= sha1 %>"
+  head "<%= repository %>"
 
   depends_on 'node'
   # possibly necessary for packages that need native compilation
