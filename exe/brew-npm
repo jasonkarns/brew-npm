@@ -4,4 +4,4 @@ BREW_NPM_HOME = File.expand_path('../..', __FILE__)
 
 $LOAD_PATH.unshift(File.join(BREW_NPM_HOME, 'lib'))
 require 'brew/npm'
-Brew::Npm::CLI.new(ARGV).run
+Brew::Npm::CLI.run(ARGV)
