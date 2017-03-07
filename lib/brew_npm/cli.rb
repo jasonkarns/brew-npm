@@ -9,11 +9,9 @@ module BrewNpm
       raise CommandRequired unless command_name
 
       Commands.get(command_name).new(args).call
-    end
 
-    # def help_msg
-    #   (["Please specify a gem name (e.g. brew gem command <name>)"] +
-    #    COMMANDS.map {|name, desc| "  #{name} - #{desc}"}).join("\n")
-    # end
+    rescue Error => e
+      abort e.message
+    end
   end
 end
