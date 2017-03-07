@@ -1,6 +1,28 @@
 require 'spec_helper'
+require 'brew_npm/cli'
 
-RSpec.describe Brew::Npm, type: :aruba  do
+RSpec.describe BrewNpm::CLI do
+  subject { described_class.new(command) }
+
+  context "without args" do
+    let(:command) {}
+
+    it "should raise CommandRequired" do
+      expect { subject }.to raise_error(/Please specify a command/)
+    end
+  end
+
+  context "with unknown command" do
+    let(:command) { 'foo' }
+
+    it "should raise CommandRequired" do
+      expect { subject.run }.to raise_error(/Unknown command: foo/)
+    end
+  end
+
+end
+
+RSpec.describe BrewNpm, type: :aruba  do
   def brew_npm(command); run_complete "#{brew_npm_exe} #{command}"; end
   def brew(command); run_complete "brew #{command}"; end
 
