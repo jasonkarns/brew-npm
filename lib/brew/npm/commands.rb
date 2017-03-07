@@ -15,7 +15,7 @@ module Brew
       #TODO only Install needs the version arg
       class BrewCommand < Command
         def initialize(args=[])
-          @formula = Formula.new Package.new(*args)
+          @formula = Formula.new Package.new(args.pop)
         end
 
         def call

@@ -8,9 +8,8 @@ module Brew
 
       attr_accessor :name, :version
 
-      def initialize(name, version='')
-        @name = name
-        @version = version
+      def initialize(name_spec)
+        @name, @version = name_spec.split('@')
 
         json = `npm view --json "#{name}@#{version}"`
 
