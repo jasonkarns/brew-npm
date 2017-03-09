@@ -12,8 +12,7 @@ module BrewNpm
 
   class BrewCommand < Command
     def initialize(args=[])
-      name, @options = process_args(args)
-      @formula = Formula.for name.pop
+      process_args args
     end
 
     def call
@@ -25,7 +24,10 @@ module BrewNpm
     private
 
     def process_args(args)
-      args.partition { |arg| !arg.start_with? '--' }
+      args, @options = args.partition { |arg| !arg.start_with? '--' }
+      package_name = args.pop
+
+      @formula = Formula.for package_name
     end
   end
 
