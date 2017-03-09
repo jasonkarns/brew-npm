@@ -1,10 +1,15 @@
 require 'tmpdir'
 require 'erb'
 
+require 'brew_npm/package'
 require 'brew_npm/template_context'
 
 module BrewNpm
   class Formula
+
+    def self.for(name)
+      new Package.new name
+    end
 
     def initialize(package)
       @filename = File.join Dir.tmpdir, "npm-#{package.name}.rb"

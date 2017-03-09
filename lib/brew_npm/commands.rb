@@ -1,6 +1,5 @@
 require 'brew_npm/errors'
 require 'brew_npm/formula'
-require 'brew_npm/package'
 
 module BrewNpm
   class Command
@@ -14,7 +13,7 @@ module BrewNpm
   class BrewCommand < Command
     def initialize(args=[])
       name, @options = process_args(args)
-      @formula = Formula.new Package.new(name.pop)
+      @formula = Formula.for name.pop
     end
 
     def call
