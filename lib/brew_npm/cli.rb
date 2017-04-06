@@ -6,12 +6,7 @@ module BrewNpm
     module_function
 
     def run(args=[])
-      command_name = args.shift
-
-      raise CommandRequired unless command_name
-
-      Commands.call(command_name, args)
-
+      Commands[args.shift]
     rescue Error => e
       abort e.message
     end
