@@ -1,111 +1,114 @@
-brew-gem -- install gems as homebrew formulas
-=============================================
+# `brew-npm` -- Install npm apps as Homebrew Formulas
 
-`brew gem` allows you to install any rubygem as a homebrew formula.
+`brew npm` allows you to install any `npm` app as a homebrew formula.
 
 It works by generating a stub formula for homebrew, which looks something like this:
 
-    class Ronn < Formula
-      def initialize(*args)
-        @name = "ronn"
-        @version = "0.7.3"
-        super
-      end
+```
+class Ronn < Formula
+  def initialize(*args)
+    @name = "ronn"
+    @version = "0.7.3"
+    super
+  end
 
-      def install
-        system "gem", "install", name, "--version", version, "--install-dir", prefix
-      end
-    end
+  def install
+    system "npm", "install", name, "--version", version, "--install-dir", prefix
+  end
+end
+```
 
-This formula installs and unpacks all the dependencies under the Cellar path. So the package is completely self contained.
+This formula installs and unpacks all the dependencies under the Cellar path, so the package is completely self contained and within the Homebrew directories.
 
+## Dependencies
 
-Dependencies
-------------
-This requires a system rubygems version of 2.3 or greater
-There is a bug prior to 2.3 that doesn't install the full dependency tree properly when you use the install-dir flag.
+This requires a system rubygems version of 2.3 or greater. There is a bug prior to 2.3 that doesn't install the full dependency tree properly when you use the install-dir flag.
 
 ```
 sudo /usr/bin/gem update --system
 ```
 
+## Install
 
-Install
--------
+There are two ways to install `brew-npm`: via Homebrew or via Rubygems.
 
-There are two ways to install `brew-gem`, via Homebrew or via Rubygems. Usually
-the Rubygems release will track ahead of the Homebrew recipe, so to receive the
-latest features, use the Rubygems install instructions.
+Usually, the Rubygems release will track ahead of the Homebrew recipe, so to receive the latest features the quickest, use the Rubygems install instructions.
 
-*Warning*: If you previously installed `brew-gem` with Homebrew, the Rubygems
-install method will fail. Run `brew unlink brew-gem` or `brew uninstall
-brew-gem` first.
+_Warning_: If you previously installed `brew-npm` with Homebrew, the Rubygems install method will fail. Run `brew unlink brew-npm` or `brew uninstall brew-npm` first.
 
-Via Rubygems:
+### Via Rubygems:
 
-    gem install brew-gem
-    brew-gem install brew-gem
+```
+gem install brew-npm
+brew-gem install brew-npm
+```
 
-Via Homebrew:
+### Via Homebrew:
 
-    brew install brew-gem
+```
+brew install brew-npm
+```
 
+## Usage
 
-Usage
------
-
-    brew gem install heroku
+```
+brew npm install heroku
+```
 
 To install a specific version:
 
-    brew gem install heroku 3.8.3
-    
+```
+brew npm install heroku 3.8.3
+```
+
 To upgrade:
 
-    brew gem upgrade heroku
-    
+```
+brew npm upgrade heroku
+```
+
 To uninstall:
 
-    brew gem uninstall heroku
+```
+brew npm uninstall heroku
+```
 
 To check information:
 
-    brew gem info heroku
+```
+brew npm info heroku
+```
 
 Note:
 
-Installed gems are listed in `brew list` with prefix of `gem-`,
-like `gem-heroku`.
+Installed npm apps are listed in `brew list` with prefix of `npm-`, like `npm-heroku`.
 
-### BASH/ZSH Completions
+## BASH/ZSH Completions
 
-To make use of completions for your gem, you need to install the
-`bash-completion` formula:
+To make use of completions for npm, you need to install the `bash-completion` formula:
 
-    brew install bash-completion
+```
+brew install bash-completion
+```
 
 And then install a gem with the completion files in the following locations:
 
-* A directory named either `completion` or `completions` with the file being
-  the name of the gem appended with the completion type.
+- A directory named either `completion` or `completions` with the file being the name of the gem appended with the completion type.
 
-  For example:  `completions/tmuxinator.bash`
-* A file somewhere in your repo named `<your_gem_name>_completion.zsh`.
+  For example: `completions/tmuxinator.bash`
 
-Files with `.bash` and `.sh` will be associated with bash and files ending in
-`.zsh` will be associated with zsh.
+- A file somewhere in your repo named `<your_gem_name>_completion.zsh`.
 
+Files with `.bash` and `.sh` will be associated with bash and files ending in `.zsh` will be associated with zsh.
 
-Philosophy
-----------
+## Philosophy
 
-This is **not** for installing development libraries, but for standalone binary tools that you want system wide.
+This is **not** for installing development libraries, but for standalone binary tools that you want system wide - aka for RUNNING apps, not for working on as a developer.
 
-
-Troubleshooting
-----------
+## Troubleshooting
 
 If your seeing build errors similar to this:
+
 ```shell
 ==> Fetching opsicle from gem source
 ==> gem install /Library/Caches/Homebrew/opsicle-0.4.2.gem --no-rdoc --no-ri --no-user-install --install-dir /usr/local/Cellar/opsicle/0.4.2 --bindir /usr/local/Cellar/opsicle/0.4.2/bin
@@ -117,5 +120,4 @@ READ THIS: https://github.com/Homebrew/homebrew/wiki/troubleshooting
 
 You probably have xcode 5.1 installed which changed the way the compilers handle flags.
 
-You'll need to set `ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future` before installing.
-_You may want to add this to your profile so you don't have to set it each time._
+You'll need to set `ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future` before installing. _You may want to add this to your profile so you don't have to set it each time._
