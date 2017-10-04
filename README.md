@@ -1,10 +1,12 @@
-# `brew-npm` -- Install npm apps as Homebrew Formulas
+# `brew-npm`
+
+## Install npm apps as Homebrew Formulas
 
 `brew npm` allows you to install any `npm` app as a homebrew formula.
 
 It works by generating a stub formula for homebrew, which looks something like this:
 
-```
+```ruby
 class Ronn < Formula
   def initialize(*args)
     @name = "ronn"
@@ -22,9 +24,9 @@ This formula installs and unpacks all the dependencies under the Cellar path, so
 
 ## Dependencies
 
-This requires a system rubygems version of 2.3 or greater. There is a bug prior to 2.3 that doesn't install the full dependency tree properly when you use the install-dir flag.
+This requires a system rubygems version of 2.3 or greater. There is a bug prior to 2.3 that doesn't install the full dependency tree properly when you use the `install-dir` flag.
 
-```
+```bash
 sudo /usr/bin/gem update --system
 ```
 
@@ -34,13 +36,13 @@ There are two ways to install `brew-npm`: via Homebrew or via Rubygems.
 
 Usually, the Rubygems release will track ahead of the Homebrew recipe, so to receive the latest features the quickest, use the Rubygems install instructions.
 
-_Warning_: If you previously installed `brew-npm` with Homebrew, the Rubygems install method will fail. Run `brew unlink brew-npm` or `brew uninstall brew-npm` first.
+_Warning_: If you previously installed `brew-npm` with Homebrew, the Rubygems install method will fail. You either need to stick with that route or run `brew unlink brew-npm` or `brew uninstall brew-npm` first.
 
 ### Via Rubygems:
 
 ```
 gem install brew-npm
-brew-gem install brew-npm
+brew-npm install brew-npm
 ```
 
 ### Via Homebrew:
@@ -79,15 +81,13 @@ To check information:
 brew npm info heroku
 ```
 
-Note:
-
-Installed npm apps are listed in `brew list` with prefix of `npm-`, like `npm-heroku`.
+> Note: Installed npm apps are listed in `brew list` with prefix of `npm-`, like: `npm-heroku`
 
 ## BASH/ZSH Completions
 
 To make use of completions for npm, you need to install the `bash-completion` formula:
 
-```
+```bash
 brew install bash-completion
 ```
 
@@ -101,9 +101,9 @@ And then install a gem with the completion files in the following locations:
 
 Files with `.bash` and `.sh` will be associated with bash and files ending in `.zsh` will be associated with zsh.
 
-## Philosophy
+## Philosophy/Warning
 
-This is **not** for installing development libraries, but for standalone binary tools that you want system wide - aka for RUNNING apps, not for working on as a developer.
+This is **not** for installing development libraries for you to work on/learn from/develop with, but for standalone binary tools and apps to **USE** that you want installed system wide.
 
 ## Troubleshooting
 
