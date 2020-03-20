@@ -1,5 +1,23 @@
+require 'optparse'
+
 require 'brew_npm/errors'
 require 'brew_npm/formula'
+
+
+class Command
+  def self.call(parser = OptionParser.new)
+    parser
+  end
+
+  def initialize(name, opts, args); end
+
+  def self.class_name
+    name.split('::').last.downcase
+  end
+end
+
+
+
 
 module BrewNpm
   class Command

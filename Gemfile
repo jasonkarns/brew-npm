@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'optparse-subcommand'
+
 group :development do
   gem "bundler", "~> 1.12"
   gem "rake", "~> 10.0"
